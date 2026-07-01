@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca de Romance</title>
+
+<style>
+
+/* ===== FONDO ANTIGUO ELEGANTE ===== */
+body{
+margin:0;
+font-family:"Georgia", serif;
+background:
+linear-gradient(rgba(255,248,240,0.96), rgba(255,248,240,0.96)),
+url("https://images.unsplash.com/photo-1455885666463-6c0f9f3f1b1f");
+background-size:cover;
+background-attachment:fixed;
+color:#3b2f2f;
+}
+
+/* ===== HEADER ESTILO CÚRSIVA ===== */
+header{
+text-align:center;
+padding:35px 20px;
+font-size:42px;
+font-style:italic;
+color:#7a1b24;
+background:rgba(255,235,220,0.9);
+border-bottom:3px solid #7a1b24;
+letter-spacing:1px;
+}
+
+.decor{
+text-align:center;
+font-size:20px;
+margin-top:-10px;
+color:#7a1b24;
+}
+
+/* ===== CONTENEDOR GENERAL ===== */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* ===== LIBRO ESTILO BIBLIOTECA VERTICAL ===== */
+.book{
+background:rgba(255, 245, 235, 0.95);
+border-left:6px solid #7a1b24;
+padding:18px 20px;
+margin-bottom:18px;
+border-radius:10px;
+box-shadow:0 6px 18px rgba(0,0,0,0.12);
+transition:0.3s;
+}
+
+.book:hover{
+transform:scale(1.01);
+}
+
+/* ===== TEXTO ===== */
+h2{
+margin:0;
+font-style:italic;
+color:#7a1b24;
+font-size:22px;
+}
+
+small{
+color:#6b4b4b;
+}
+
+p{
+margin-top:10px;
+line-height:1.5;
+color:#3b2f2f;
+}
+
+/* ===== BOTÓN ===== */
+button{
+margin-top:10px;
+padding:10px 14px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#7a1b24;
+color:white;
+font-weight:bold;
+transition:0.3s;
+}
+
+button:hover{
+background:#4f0f15;
+}
+
+/* ===== BUSCADOR ===== */
+.search{
+text-align:center;
+margin:25px;
+}
+
+input{
+width:60%;
+max-width:420px;
+padding:12px;
+border-radius:10px;
+border:1px solid #7a1b24;
+outline:none;
+font-size:14px;
+}
+
+/* ===== RESULTADOS ===== */
+.result{
+max-width:900px;
+margin:auto;
+padding:10px 20px 40px;
+}
+
+.tag{
+text-align:center;
+font-style:italic;
+color:#7a1b24;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>🌹 Biblioteca de Romance 🌹</header>
+<div class="decor">📜 ✉️ 🌹 ✉️ 📜</div>
+
+<div class="tag">Colección principal de romance clásico y moderno</div>
+
+<div class="container" id="lista"></div>
+
+<!-- BUSCADOR -->
+<div class="search">
+<h3 style="font-style:italic;color:#7a1b24;">🔎 Buscar más libros de romance</h3>
+<input type="text" id="buscador" placeholder="Escribe título o autor..." onkeyup="buscar()">
+</div>
+
+<div class="result" id="resultados"></div>
+
+<script>
+
+/* ===== LIBROS PRINCIPALES ===== */
+const libros = [
+
+{
+titulo:"El mapa de los anhelos",
+autor:"Alice Kellen",
+anio:"2022",
+desc:"Dos personas heridas emocionalmente descubren el amor mientras intentan reconstruir su vida y sus sueños.",
+link:"https://avifyshop.com/cr/elmapadelosanhelosalicekellen.html"
+},
+
+{
+titulo:"Orgullo y prejuicio",
+autor:"Jane Austen",
+anio:"1813",
+desc:"Historia de amor entre Elizabeth Bennet y Mr. Darcy marcada por orgullo, prejuicios sociales y crecimiento personal.",
+link:"https://librerialannister.com/product/orgullo-y-prejuicio-3/"
+},
+
+{
+titulo:"Sentido y sensibilidad",
+autor:"Jane Austen",
+anio:"1811",
+desc:"Dos hermanas enfrentan el amor, la pérdida y las decisiones difíciles en una sociedad rígida.",
+link:"https://www.akal.com/libro/sentido-y-sensibilidad-edicion-anotada_55105/"
+},
+
+{
+titulo:"Cartas a los perdidos",
+autor:"Brigid Kemmerer",
+anio:"2017",
+desc:"Dos jóvenes conectan a través de cartas en un cementerio sin saber quién es el otro.",
+link:"https://www.oceano.com.ec/online/index.php?id_product=10797&controller=product"
+},
+
+{
+titulo:"El día que dejó de nevar en Alaska",
+autor:"Alice Kellen",
+anio:"2017",
+desc:"Una chica rota encuentra amor y segundas oportunidades en un pequeño pueblo de Alaska.",
+link:"https://www.encantadalibros.ar/productos/el-dia-que-dejo-de-nevar-en-alaska-alice-kellen-edicion-tapa-dura-pocket/"
+},
+
+{
+titulo:"Si fuéramos eternos",
+autor:"Emma Gil",
+anio:"Contemporáneo",
+desc:"Un amor intenso que desafía el tiempo, las decisiones y el destino.",
+link:"https://www.planetadelibros.us/libro-si-fueramos-eternos/443039"
+},
+
+{
+titulo:"El arte de ser nosotros",
+autor:"Inma Rubiales",
+anio:"2022",
+desc:"Dos jóvenes con heridas emocionales descubren que el amor puede sanar incluso lo más roto.",
+link:"https://escritoras.com/libros/si-fueramos-eternos"
+},
+
+{
+titulo:"Mejor que en las películas",
+autor:"Lynn Painter",
+anio:"2021",
+desc:"Una historia divertida sobre cómo el amor real no siempre es como lo imaginamos.",
+link:"https://www.amazon.com"
+}
+
+];
+
+/* ===== LIBROS EXTRA (BUSCADOR) ===== */
+const extras = [
+
+{
+titulo:"Bajo la misma estrella",
+autor:"John Green",
+desc:"Dos adolescentes con cáncer viven un amor profundo y emocional.",
+link:"https://www.amazon.com"
+},
+
+{
+titulo:"Yo antes de ti",
+autor:"Jojo Moyes",
+desc:"Una chica cambia la vida de un hombre que ha perdido las ganas de vivir.",
+link:"https://www.amazon.com"
+},
+
+{
+titulo:"After",
+autor:"Anna Todd",
+desc:"Historia de amor intensa, complicada y apasionada entre dos jóvenes.",
+link:"https://www.amazon.com"
+},
+
+{
+titulo:"A todos los chicos de los que me enamoré",
+autor:"Jenny Han",
+desc:"Cartas de amor secretas que terminan saliendo a la luz.",
+link:"https://www.amazon.com"
+},
+
+{
+titulo:"El cuaderno de Noah",
+autor:"Nicholas Sparks",
+desc:"Un amor eterno que resiste el tiempo y la memoria.",
+link:"https://www.amazon.com"
+}
+
+];
+
+/* ===== RENDER PRINCIPAL ===== */
+function render(){
+
+let cont=document.getElementById("lista");
+cont.innerHTML="";
+
+libros.forEach(l=>{
+
+let div=document.createElement("div");
+div.className="book";
+
+div.innerHTML=`
+<h2>${l.titulo}</h2>
+<small>${l.autor} • ${l.anio}</small>
+
+<p>${l.desc}</p>
+
+<button onclick="window.open('${l.link}','_blank')">
+📖 Ir a comprar
+</button>
+`;
+
+cont.appendChild(div);
+});
+
+}
+
+/* ===== BUSCADOR ===== */
+function buscar(){
+
+let text=document.getElementById("buscador").value.toLowerCase();
+let cont=document.getElementById("resultados");
+cont.innerHTML="";
+
+if(text.trim()==="") return;
+
+let filtrados = extras.filter(l =>
+l.titulo.toLowerCase().includes(text) ||
+l.autor.toLowerCase().includes(text)
+);
+
+filtrados.forEach(l=>{
+
+let div=document.createElement("div");
+div.className="book";
+
+div.innerHTML=`
+<h2>${l.titulo}</h2>
+<small>${l.autor}</small>
+
+<p>${l.desc}</p>
+
+<button onclick="window.open('${l.link}','_blank')">
+🔗 Ver / Comprar
+</button>
+`;
+
+cont.appendChild(div);
+});
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>
